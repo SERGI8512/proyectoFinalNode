@@ -1,1 +1,7 @@
-const routes = require('assert/strict')
+const routes = require('express').Router();
+
+
+
+module.exports = {
+
+}
