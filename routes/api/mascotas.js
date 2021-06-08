@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const { getAllMascotas } = require('../../models/mascotas.model');
 
-router.get('/mascotas', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const limit = req.query.limit || 10;
         const page = req.query.page || 1;
@@ -11,7 +11,7 @@ router.get('/mascotas', async (req, res) => {
         res.json(rows);
     } catch (err) {
         console.log(err);
-        res.json({ error: '/api/usuarios/mascotas NO VA' })
+        res.json({ error: '/api/mascotas NO VA' })
     }
 });
 
