@@ -10,6 +10,20 @@ const getAllCuidadores = (limit, page) => {
     });
     return prom;
 };
+
+const newCuidador = ({ nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, genero, password }) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'insert into cuidadores (nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, genero, password) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, genero, password],
+            (err, result) => {
+                if (err) reject(err);
+                resolve(result);
+            }
+        )
+    });
+}
 module.exports = {
-    getAllCuidadores
+    getAllCuidadores,
+    newCuidador
 }
