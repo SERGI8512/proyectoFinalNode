@@ -10,6 +10,21 @@ const getAllMascotas = (limit, page) => {
     });
     return prom;
 };
+
+const newMascota = ({ nombre, especie, raza, peso, sexo, edad, caracter, cuidadosEspeciales, queCome, fk_cliente, masSobre }) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'insert into mascota (nombre, especie, raza, peso, sexo, edad, caracter, cuidadosEspeciales, queCome, fk_cliente, masSobre) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [nombre, especie, raza, peso, sexo, edad, caracter, cuidadosEspeciales, queCome, fk_cliente, masSobre],
+            (err, result) => {
+                if (err) reject(err);
+                resolve(result);
+            }
+        )
+    });
+}
+
 module.exports = {
-    getAllMascotas
+    getAllMascotas,
+    newMascota
 }

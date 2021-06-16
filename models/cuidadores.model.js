@@ -11,11 +11,11 @@ const getAllCuidadores = (limit, page) => {
     return prom;
 };
 
-const newCuidador = ({ nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, genero, password }) => {
+const newCuidador = ({ nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password }) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'insert into cuidadores (nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, genero, password) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, genero, password],
+            'insert into cuidadores (nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password],
             (err, result) => {
                 if (err) reject(err);
                 resolve(result);

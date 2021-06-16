@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getAllMascotas } = require('../../models/mascotas.model');
+const { getAllMascotas, newMascota } = require('../../models/mascotas.model');
 
 router.get('/', async (req, res) => {
     try {
@@ -14,5 +14,10 @@ router.get('/', async (req, res) => {
         res.json({ error: '/api/mascotas NO VA' })
     }
 });
+
+router.post('/new', async (req, res) => {
+    const result = await newMascota(req.body);
+    res.json(result);
+})
 
 module.exports = router;
