@@ -1,2 +1,54 @@
 ###
 GET http://localhost:3000/api/usuarios
+
+###
+POST http://localhost:3000/api/cuidadores/new
+Content-Type: application/json
+
+{
+    "nombre": "Mario",
+    "apellido": "Giron",
+    "experimentado": "No",
+    "razasAdmitidas": "Lagarto",
+    "email": "mario@gmail.com",
+    "direccion": "Calle de las Flores 43, Madrid, 07524",
+    "edad": 37,
+    "telefono": "673461329",
+    "genero": "Hombre",
+    "password": "12345"
+}
+
+// REVISAR PETICIÓN POST SOBRE MASCOTAS NEW YA QUE DA ERROR AL INTRODUCIR UN fk_cliente que no sea existente.
+###
+POST http://localhost:3000/api/mascotas/new
+Content-Type: application/json
+
+{
+    "nombre": "Mixu",
+    "especie": "Gato",
+    "raza": "Persa",
+    "peso": 4,
+    "sexo": "Macho",
+    "edad": 10,
+    "caracter": "Muy arísco",
+    "cuidadosEspeciales": "Ninguno",
+    "queCome": "Pienso específico de gatos",
+    "fk_cliente": 3,
+    "masSobre": "Es un gato muy independiente. No le gusta que le atosiguen, pero cuando quiere, es un amor"
+}
+
+###
+POST http://localhost:3000/api/usuarios/new
+Content-Type: application/json
+
+{
+    "nombre": "Mario",
+    "apellidos": "Giron",
+    "email": "mario@gmail.com",
+    "direccion": "Calle de las Flores 43, Madrid, 07524",
+    "edad": 37,
+    "genero": "Hombre",
+    "telefono": "673461329",
+    "password": "12345"
+}
+

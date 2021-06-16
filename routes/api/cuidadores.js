@@ -16,19 +16,6 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/new', async (req, res) => {
-    try {
-        const limit = req.query.limit || 10;
-        const page = req.query.page || 1;
-
-        const rows = await newCuidador(parseInt(limit), parseInt(page));
-        res.json(rows);
-    } catch (err) {
-        console.log(err);
-        res.json({ error: 'api/cuidadores/new NO FUNCIONA' })
-    }
-});
-
-router.post('/new', async (req, res) => {
     const result = await newCuidador(req.body);
     res.json(result);
 })
