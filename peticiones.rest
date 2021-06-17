@@ -1,16 +1,78 @@
+//PETICIONES PARA LOS USUARIOS:
 ###
 GET http://localhost:3000/api/usuarios
+
+###
+POST http://localhost:3000/api/usuarios/new
+Content-Type: application/json
+
+{
+    "nombre": "Fabrizio",
+    "apellidos": "Carboni",
+    "email": "fabrizio@gmail.com",
+    "direccion": "Calle de sentmenat 67, Madrid, 07524",
+    "edad": 41,
+    "genero": "Hombre",
+    "telefono": "673529185",
+    "password": "1234567"
+}
+
+###
+PUT http://localhost:3000/api/usuarios/update/10
+Content-Type: application/json
+
+{
+    "nombre": "Maria",
+    "apellidos": "Pedralbes",
+    "email": "maria4@gmail.com",
+    "direccion": "Calle de las Flores 43, Madrid, 07524",
+    "edad": 58,
+    "genero": "Mujer",
+    "telefono": "673461329",
+    "password": "54321"
+}
+
+###
+GET http://localhost:3000/api/usuarios/1
+###
+GET http://localhost:3000/api/usuarios/mayor/35/menor/40
+###
+GET http://localhost:3000/api/usuarios/genero/hombre
+###
+DELETE http://localhost:3000/api/usuarios/2
+
+//PETICIONES PARA LOS CUIDADORES:
+
+###
+GET http://localhost:3000/api/cuidadores
 
 ###
 POST http://localhost:3000/api/cuidadores/new
 Content-Type: application/json
 
 {
-    "nombre": "Mario",
-    "apellido": "Giron",
+    "nombre": "Lorena",
+    "apellido": "Gastón",
+    "experimentado": "Si",
+    "razasAdmitidas": "Lagarto",
+    "email": "lorena@gmail.com",
+    "direccion": "Calle Covadonga, Madrid, 07524",
+    "edad": 19,
+    "telefono": "662983344",
+    "genero": "Mujer",
+    "password": "1234567"
+}
+
+###
+PUT http://localhost:3000/api/cuidadores/update/6
+Content-Type: application/json
+
+{
+    "nombre": "Ernesto",
+    "apellido": "Valverde",
     "experimentado": "No",
     "razasAdmitidas": "Lagarto",
-    "email": "mario@gmail.com",
+    "email": "ernesto@gmail.com",
     "direccion": "Calle de las Flores 43, Madrid, 07524",
     "edad": 37,
     "telefono": "673461329",
@@ -18,7 +80,23 @@ Content-Type: application/json
     "password": "12345"
 }
 
+###
+GET http://localhost:3000/api/cuidadores/5
+###
+GET http://localhost:3000/api/cuidadores/mayor/18/menor/60
+###
+GET http://localhost:3000/api/cuidadores/genero/mujer
+###
+DELETE http://localhost:3000/api/cuidadores/9
+
+
+//PETICIONES PARA MASCOTAS:
+
 // REVISAR PETICIÓN POST SOBRE MASCOTAS NEW YA QUE DA ERROR AL INTRODUCIR UN fk_cliente que no sea existente.
+
+###
+GET http://localhost:3000/api/mascotas
+
 ###
 POST http://localhost:3000/api/mascotas/new
 Content-Type: application/json
@@ -38,17 +116,29 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3000/api/usuarios/new
+PUT http://localhost:3000/api/mascotas/update/10
 Content-Type: application/json
 
 {
-    "nombre": "Mario",
-    "apellidos": "Giron",
-    "email": "mario@gmail.com",
-    "direccion": "Calle de las Flores 43, Madrid, 07524",
-    "edad": 37,
-    "genero": "Hombre",
-    "telefono": "673461329",
-    "password": "12345"
+    "nombre": "Mixa",
+    "especie": "Gato",
+    "raza": "Persa",
+    "peso": 3,
+    "sexo": "Macho",
+    "edad": 7,
+    "caracter": "Muy arísco",
+    "cuidadosEspeciales": "Ninguno",
+    "queCome": "Pienso específico de gatos",
+    "fk_cliente": 3,
+    "masSobre": "Es un gato muy independiente. No le gusta que le atosiguen, pero cuando quiere, es un amor"
 }
+
+###
+GET http://localhost:3000/api/mascotas/2
+###
+GET http://localhost:3000/api/mascotas/especie/perro
+###
+DELETE http://localhost:3000/api/mascotas/12
+
+
 

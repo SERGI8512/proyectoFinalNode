@@ -22,9 +22,62 @@ const newMascota = ({ nombre, especie, raza, peso, sexo, edad, caracter, cuidado
             }
         )
     });
-}
+};
+
+const getMascotasById = (pMascotaId) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'select * from mascota where id = ?',
+            [pMascotaId],
+            (err, rows) => {
+                if (err) reject(err);
+                if (rows.length !== 1) resolve(null);
+                resolve(rows[0]);
+            })
+    });
+};
+
+const getMascotasByEspecie = (pMascotaEspecie) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM mascota where mascota.especie = ?',
+            [pMascotaEspecie],
+            (err, rows) => {
+                if (err) reject(err);
+                resolve(rows);
+            });
+    });
+};
+
+const deleteMascotaById = (pMascotaId) => {
+    return new Promise((resolve, reject) => {
+        db.query('delete from mascota where id = ?', [pMascotaId], (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        });
+    });
+};
+
+const updateMascota = (pMascotaId, { nombre, especie, raza, peso, sexo, edad, caracter, cuidadosEspeciales, queCome, masSobre, fk_cliente }) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'UPDATE mascota SET nombre = ?, especie = ?, raza = ?, peso = ?, sexo = ?, edad = ?, caracter = ?, cuidadosEspeciales = ?, queCome = ?, masSobre = ?, fk_cliente = ? WHERE id = ?',
+            [nombre, especie, raza, peso, sexo, edad, caracter, cuidadosEspeciales, queCome, masSobre, fk_cliente, pMascotaId],
+            (err, result) => {
+                if (err) reject(err);
+                resolve(result);
+            });
+    });
+};
+
+
+
 
 module.exports = {
     getAllMascotas,
-    newMascota
+    newMascota,
+    getMascotasById,
+    getMascotasByEspecie,
+    deleteMascotaById,
+    updateMascota
 }

@@ -24,7 +24,72 @@ const newUsuario = ({ nombre, apellidos, email, direccion, edad, genero, telefon
     });
 }
 
+const getUsuarioById = (pUsuarioId) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'select * from usuarios where id = ?',
+            [pUsuarioId],
+            (err, rows) => {
+                if (err) reject(err);
+                if (rows.length !== 1) resolve(null);
+                resolve(rows[0]);
+            })
+    });
+};
+
+const getUsuarioByGenero = (pUsuarioGenero) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'select * from usuarios where genero = ?',
+            [pUsuarioGenero],
+            (err, rows) => {
+                if (err) reject(err);
+                resolve(rows);
+            })
+    });
+};
+
+const getUsersEdad = (pEdadMin, pEdadMax) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'select * from usuarios where usuarios.edad > ? && usuarios.edad < ?', [pEdadMin, pEdadMax],
+            (err, rows) => {
+                if (err) reject(err);
+                resolve(rows);
+            })
+    });
+};
+
+
+
+const deleteUsuarioById = (pUsuarioId) => {
+    return new Promise((resolve, reject) => {
+        db.query('delete from usuarios where id = ?', [pUsuarioId], (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        });
+    });
+};
+
+const updateUsuario = (pUsuarioId, { nombre, apellidos, email, direccion, edad, genero, telefono, password }) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'UPDATE usuarios SET nombre = ?, apellidos = ?, email = ?, direccion = ?, edad = ?, genero = ?, telefono = ?, password = ? WHERE id = ?',
+            [nombre, apellidos, email, direccion, edad, genero, telefono, password, pUsuarioId],
+            (err, result) => {
+                if (err) reject(err);
+                resolve(result);
+            });
+    });
+};
+
+
 module.exports = {
     getAllUsers,
-    newUsuario
+    newUsuario,
+    getUsuarioById,
+    getUsersEdad,
+    getUsuarioByGenero,
+    deleteUsuarioById,
+    updateUsuario
 }
