@@ -24,6 +24,17 @@ const newUsuario = ({ nombre, apellidos, email, direccion, edad, genero, telefon
     });
 }
 
+const getUsuarioByEmail = (pEmail) => {
+    return new Promise((resolve, reject) => {
+
+        db.query('select * from usuarios where email = ?', [pEmail], (err, rows) => {
+            if (err) reject(err);
+            if (rows.length !== 1) resolve(null);
+            resolve(rows[0]);
+        })
+    })
+}
+
 const getUsuarioById = (pUsuarioId) => {
     return new Promise((resolve, reject) => {
         db.query(
@@ -87,6 +98,7 @@ const updateUsuario = (pUsuarioId, { nombre, apellidos, email, direccion, edad, 
 module.exports = {
     getAllUsers,
     newUsuario,
+    getUsuarioByEmail,
     getUsuarioById,
     getUsersEdad,
     getUsuarioByGenero,

@@ -1,21 +1,32 @@
 //PETICIONES PARA LOS USUARIOS:
 ###
 GET http://localhost:3000/api/usuarios
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxNCwiY2FkdWNpZGFkIjoxNjI0MDM0NjkyLCJpYXQiOjE2MjQwMTY2OTJ9.pEts43rvBQIU8TSnFWTsT_FoLMsJVbpGkwfuutXnBxA
 
 ###
 POST http://localhost:3000/api/usuarios/new
 Content-Type: application/json
 
 {
-    "nombre": "Fabrizio",
-    "apellidos": "Carboni",
-    "email": "fabrizio@gmail.com",
-    "direccion": "Calle de sentmenat 67, Madrid, 07524",
-    "edad": 41,
-    "genero": "Hombre",
-    "telefono": "673529185",
-    "password": "1234567"
+    "nombre": "M",
+    "apellidos": "Casas",
+    "email": "mireee@gmail.com",
+    "direccion": "Sentmenat 67, Sabadell, 08203",
+    "edad": 27,
+    "genero": "Mujer",
+    "telefono": "645362762",
+    "password": "12345"
 }
+
+###
+POST http://localhost:3000/api/usuarios/login
+Content-Type: application/json
+
+{
+    "email": "mireee@gmail.com",
+    "password": "12345"
+}
+
 
 ###
 PUT http://localhost:3000/api/usuarios/update/10

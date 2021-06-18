@@ -1,6 +1,10 @@
-const router = require('express').Router();
+const { getAllUsers, newUsuario, getUsuarioByEmail, getUsuarioById, getUsersEdad, getUsuarioByGenero, deleteUsuarioById, updateUsuario } = require('../../models/usuarios.model');
 
-const { getAllUsers, newUsuario, getUsuarioById, getUsersEdad, getUsuarioByGenero, deleteUsuarioById, updateUsuario } = require('../../models/usuarios.model');
+const router = require('express').Router();
+const bcrypt = require('bcryptjs');
+const { body, validationResult } = require('express-validator');
+const dayjs = require('dayjs');
+const jwt = require('jsonwebtoken');
 
 router.get('/', async (req, res) => {
     try {
@@ -15,10 +19,58 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/new', async (req, res) => {
-    const result = await newUsuario(req.body);
-    res.json(result);
+router.post('/new', [
+    body('nombre', 'Debe introducir un nombre con un mínimo de 3 caracteres').exists().isLength({ min: 3 }),
+    body('email', 'El formato del email introducido no es válido').isEmail()
+], async (req, res) => {
+
+    //Aquí validamos los datos de entrada con los validadores que hemos introducido arriba.
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    //Aquí comprobamos si el email introducido para registrarse ya existe, por tanto, si no existe nos devolerá null, si existe nos devuelve un objecto con el usuario que tenga ese email. 
+
+    const usuario = await getUsuarioByEmail(req.body.email);
+    if (usuario) {//cuando ponemos if (usuaurio) significa que no es null. Por eso no ponemos if (usuario !== null)
+        return res.json({ error: 'El email ya se encuentra registrado' });
+    }
+
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
+
+    newUsuario(req.body)
+        .then(result => res.json(result))
+        .catch(error => console.log(error));
 });
+
+router.post('/login', async (req, res) => {
+
+    //Primero comprobamos si existe el email:
+    const usuario = await getUsuarioByEmail(req.body.email);
+    if (usuario == null) {
+        return res.json({ error: 'error en el email y/o password introducido' });
+    }
+
+    //Comprobamos ahora si las password coinciden. Usamos el método compareSync para esperar a que haga la comprobación y luego seguir adelante.
+    const samePass = bcrypt.compareSync(req.body.password, usuario.password);
+    if (samePass) {// esto es lo mismo que if(samePass === true)
+        res.json({ success: 'Los datos introducidos son correctos', token: createToken(usuario) });
+    } else {
+        res.json({ error: 'error en el email y/o password introducido' });
+    }
+
+});
+
+function createToken(pUsuario) {
+    const obj = {
+        usuario_id: pUsuario.id,
+        caducidad: dayjs().add(300, 'minutes').unix()
+    }
+    return jwt.sign(obj, 'randomKey');
+
+}
 
 router.get('/:usuarioId', async (req, res) => {
     const usuario = await getUsuarioById(req.params.usuarioId);
