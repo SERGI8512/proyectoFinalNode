@@ -94,6 +94,19 @@ const updateUsuario = (pUsuarioId, { nombre, apellidos, email, direccion, edad, 
     });
 };
 
+const newCuidador = ({ nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password }) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'insert into cuidadores (nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password],
+            (err, result) => {
+                if (err) reject(err);
+                resolve(result);
+            }
+        )
+    });
+};
+
 
 module.exports = {
     getAllUsers,
@@ -103,5 +116,6 @@ module.exports = {
     getUsersEdad,
     getUsuarioByGenero,
     deleteUsuarioById,
-    updateUsuario
+    updateUsuario,
+    newCuidador
 }

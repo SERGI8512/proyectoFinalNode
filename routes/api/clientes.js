@@ -1,4 +1,4 @@
-const { getAllUsers, newUsuario, getUsuarioByEmail, getUsuarioById, getUsersEdad, getUsuarioByGenero, deleteUsuarioById, updateUsuario, newCuidador } = require('../../models/usuarios.model');
+const { getAllUsers, newUsuario, getUsuarioByEmail, getUsuarioById, getUsersEdad, getUsuarioByGenero, deleteUsuarioById, updateUsuario, newCuidador } = require('../../models/cliente.model');
 
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
@@ -99,11 +99,6 @@ router.put('/update/:usuarioId', async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-});
-
-router.post('/newCuidador', async (req, res) => {
-    const result = await newCuidador(req.body);
-    res.json(result);
 });
 
 

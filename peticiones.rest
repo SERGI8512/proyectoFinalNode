@@ -23,13 +23,13 @@ POST http://localhost:3000/api/usuarios/login
 Content-Type: application/json
 
 {
-    "email": "mireee@gmail.com",
+    "email": "ana@gmail.com",
     "password": "12345"
 }
 
 
 ###
-PUT http://localhost:3000/api/usuarios/update/10
+PUT http://localhost:3000/api/clientes/update/10
 Content-Type: application/json
 
 {
@@ -44,13 +44,13 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/api/usuarios/1
+GET http://localhost:3000/api/clientes/1
 ###
-GET http://localhost:3000/api/usuarios/mayor/35/menor/40
+GET http://localhost:3000/api/clientes/mayor/35/menor/40
 ###
-GET http://localhost:3000/api/usuarios/genero/hombre
+GET http://localhost:3000/api/clientes/genero/hombre
 ###
-DELETE http://localhost:3000/api/usuarios/2
+DELETE http://localhost:3000/api/clientes/2
 
 //PETICIONES PARA LOS CUIDADORES:
 
@@ -58,7 +58,7 @@ DELETE http://localhost:3000/api/usuarios/2
 GET http://localhost:3000/api/cuidadores
 
 ###
-POST http://localhost:3000/api/cuidadores/new
+POST http://localhost:3000/api/usuarios/newCuidador
 Content-Type: application/json
 
 {
