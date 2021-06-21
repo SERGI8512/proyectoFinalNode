@@ -1,24 +1,35 @@
 //PETICIONES PARA LOS USUARIOS:
 ###
 GET http://localhost:3000/api/usuarios
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxNCwiY2FkdWNpZGFkIjoxNjI0MDM0NjkyLCJpYXQiOjE2MjQwMTY2OTJ9.pEts43rvBQIU8TSnFWTsT_FoLMsJVbpGkwfuutXnBxA
 
 ###
-POST http://localhost:3000/api/usuarios/new
+POST http://localhost:3000/api/usuarios/newCliente
 Content-Type: application/json
 
 {
-    "nombre": "Fabrizio",
-    "apellidos": "Carboni",
-    "email": "fabrizio@gmail.com",
-    "direccion": "Calle de sentmenat 67, Madrid, 07524",
-    "edad": 41,
-    "genero": "Hombre",
-    "telefono": "673529185",
-    "password": "1234567"
+    "nombre": "maria",
+    "apellidos": "Ruiz",
+    "email": "maria9@gmail.com",
+    "direccion": "Sentmenat 67, Sabadell, 08203",
+    "edad": 27,
+    "genero": "Mujer",
+    "telefono": "645362762",
+    "password": "12345"
 }
 
 ###
-PUT http://localhost:3000/api/usuarios/update/10
+POST http://localhost:3000/api/usuarios/loginCliente
+Content-Type: application/json
+
+{
+    "email": "ana@gmail.com",
+    "password": "12345"
+}
+
+
+###
+PUT http://localhost:3000/api/clientes/update/10
 Content-Type: application/json
 
 {
@@ -33,13 +44,13 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/api/usuarios/1
+GET http://localhost:3000/api/clientes/1
 ###
-GET http://localhost:3000/api/usuarios/mayor/35/menor/40
+GET http://localhost:3000/api/clientes/mayor/35/menor/40
 ###
-GET http://localhost:3000/api/usuarios/genero/hombre
+GET http://localhost:3000/api/clientes/genero/hombre
 ###
-DELETE http://localhost:3000/api/usuarios/2
+DELETE http://localhost:3000/api/clientes/2
 
 //PETICIONES PARA LOS CUIDADORES:
 
@@ -47,7 +58,7 @@ DELETE http://localhost:3000/api/usuarios/2
 GET http://localhost:3000/api/cuidadores
 
 ###
-POST http://localhost:3000/api/cuidadores/new
+POST http://localhost:3000/api/usuarios/newCuidador
 Content-Type: application/json
 
 {
@@ -55,12 +66,20 @@ Content-Type: application/json
     "apellido": "Gastón",
     "experimentado": "Si",
     "razasAdmitidas": "Lagarto",
-    "email": "lorena@gmail.com",
+    "email": "lorenaa5@gmail.com",
     "direccion": "Calle Covadonga, Madrid, 07524",
     "edad": 19,
     "telefono": "662983344",
     "genero": "Mujer",
     "password": "1234567"
+}
+
+POST http://localhost:3000/api/usuarios/loginCuidador
+Content-Type: application/json
+
+{
+    "email": "ana@gmail.com",
+    "password": "12345"
 }
 
 ###

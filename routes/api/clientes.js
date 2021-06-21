@@ -1,4 +1,4 @@
-const { getAllUsers, newCliente, getClienteByEmail, getUsuarioById, getUsersEdad, getUsuarioByGenero, deleteUsuarioById, updateUsuario, newCuidador, getCuidadorByEmail } = require('../../models/usuarios.model');
+const { getAllUsers, newUsuario, getUsuarioByEmail, getUsuarioById, getUsersEdad, getUsuarioByGenero, deleteUsuarioById, updateUsuario, newCuidador } = require('../../models/cliente.model');
 
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/newCliente', [
+router.post('/new', [
     body('nombre', 'Debe introducir un nombre con un mínimo de 3 caracteres').exists().isLength({ min: 3 }),
     body('email', 'El formato del email introducido no es válido').isEmail()
 ], async (req, res) => {
@@ -27,52 +27,25 @@ router.post('/newCliente', [
     //Aquí validamos los datos de entrada con los validadores que hemos introducido arriba.
 
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
     //Aquí comprobamos si el email introducido para registrarse ya existe, por tanto, si no existe nos devolerá null, si existe nos devuelve un objecto con el usuario que tenga ese email. 
 
-    const cliente = await getClienteByEmail(req.body.email);
-    if (cliente) {//cuando ponemos if (cliente) significa que no es null. Por eso no ponemos if (usuario !== null)
-        return res.json({ error: 'El email ya se encuentra registrado' });
-    }
-
-    req.body.password = bcrypt.hashSync(req.body.password, 10);
-
-    newCliente(req.body)
-        .then(result => res.json(result))
-        .catch(error => console.log(error));
-});
-
-router.post('/newCuidador', [
-    body('nombre', 'Debe introducir un nombre con un mínimo de 3 caracteres').exists().isLength({ min: 3 }),
-    body('email', 'El formato del email introducido no es válido').isEmail()
-], async (req, res) => {
-
-    //Aquí validamos los datos de entrada con los validadores que hemos introducido arriba.
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-
-        return res.status(400).json({ errors: errors.array() });
-    }
-
-    //Aquí comprobamos si el email introducido para registrarse ya existe, por tanto, si no existe nos devolerá null, si existe nos devuelve un objecto con el usuario que tenga ese email. 
-
-    const usuario = await getCuidadorByEmail(req.body.email);
+    const usuario = await getUsuarioByEmail(req.body.email);
     if (usuario) {//cuando ponemos if (usuaurio) significa que no es null. Por eso no ponemos if (usuario !== null)
         return res.json({ error: 'El email ya se encuentra registrado' });
     }
 
     req.body.password = bcrypt.hashSync(req.body.password, 10);
 
-    newCuidador(req.body)
+    newUsuario(req.body)
         .then(result => res.json(result))
         .catch(error => console.log(error));
 });
 
-router.post('/loginCliente', async (req, res) => {
+router.post('/login', async (req, res) => {
 
     //Primero comprobamos si existe el email:
     const usuario = await getUsuarioByEmail(req.body.email);
@@ -127,11 +100,6 @@ router.put('/update/:usuarioId', async (req, res) => {
         console.log(error);
     }
 });
-
-/* router.post('/newCuidador', async (req, res) => {
-    const result = await newCuidador(req.body);
-    res.json(result);
-}); */
 
 
 module.exports = router;
