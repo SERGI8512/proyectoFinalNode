@@ -11,7 +11,7 @@ const getAllUsers = (limit, page) => {
     return prom;
 };
 
-const newUsuario = ({ nombre, apellidos, email, direccion, edad, genero, telefono, password }) => {
+const newCliente = ({ nombre, apellidos, email, direccion, edad, genero, telefono, password }) => {
     return new Promise((resolve, reject) => {
         db.query(
             'insert into usuarios (nombre, apellidos, email, direccion, edad,  genero, telefono, password) values (?, ?, ?, ?, ?, ?, ?, ?)',
@@ -22,9 +22,22 @@ const newUsuario = ({ nombre, apellidos, email, direccion, edad, genero, telefon
             }
         )
     });
-}
+};
 
-const getUsuarioByEmail = (pEmail) => {
+const newCuidador = ({ nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password }) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'insert into cuidadores (nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password],
+            (err, result) => {
+                if (err) reject(err);
+                resolve(result);
+            }
+        )
+    });
+};
+
+const getClienteByEmail = (pEmail) => {
     return new Promise((resolve, reject) => {
 
         db.query('select * from usuarios where email = ?', [pEmail], (err, rows) => {
@@ -32,13 +45,37 @@ const getUsuarioByEmail = (pEmail) => {
             if (rows.length !== 1) resolve(null);
             resolve(rows[0]);
         })
-    })
-}
+    });
+};
+
+const getCuidadorByEmail = (pEmail) => {
+    return new Promise((resolve, reject) => {
+
+        db.query('select * from cuidadores where email = ?', [pEmail], (err, rows) => {
+            if (err) reject(err);
+            if (rows.length !== 1) resolve(null);
+            resolve(rows[0]);
+        })
+    });
+};
 
 const getUsuarioById = (pUsuarioId) => {
     return new Promise((resolve, reject) => {
         db.query(
             'select * from usuarios where id = ?',
+            [pUsuarioId],
+            (err, rows) => {
+                if (err) reject(err);
+                if (rows.length !== 1) resolve(null);
+                resolve(rows[0]);
+            })
+    });
+};
+
+const getCuidadorById = (pUsuarioId) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'select * from cuidadores where id = ?',
             [pUsuarioId],
             (err, rows) => {
                 if (err) reject(err);
@@ -71,8 +108,6 @@ const getUsersEdad = (pEdadMin, pEdadMax) => {
     });
 };
 
-
-
 const deleteUsuarioById = (pUsuarioId) => {
     return new Promise((resolve, reject) => {
         db.query('delete from usuarios where id = ?', [pUsuarioId], (err, result) => {
@@ -94,25 +129,13 @@ const updateUsuario = (pUsuarioId, { nombre, apellidos, email, direccion, edad, 
     });
 };
 
-const newCuidador = ({ nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password }) => {
-    return new Promise((resolve, reject) => {
-        db.query(
-            'insert into cuidadores (nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [nombre, apellido, experimentado, razasAdmitidas, email, direccion, edad, telefono, genero, password],
-            (err, result) => {
-                if (err) reject(err);
-                resolve(result);
-            }
-        )
-    });
-};
-
-
 module.exports = {
     getAllUsers,
-    newUsuario,
-    getUsuarioByEmail,
+    newCliente,
+    getClienteByEmail,
+    getCuidadorByEmail,
     getUsuarioById,
+    getCuidadorById,
     getUsersEdad,
     getUsuarioByGenero,
     deleteUsuarioById,
