@@ -75,7 +75,7 @@ router.post('/newCuidador', [
 router.post('/loginCliente', async (req, res) => {
 
     //Primero comprobamos si existe el email:
-    const usuario = await getUsuarioByEmail(req.body.email);
+    const usuario = await getClienteByEmail(req.body.email);
     if (usuario == null) {
         return res.json({ error: 'error en el email y/o password introducido' });
     }
@@ -86,6 +86,24 @@ router.post('/loginCliente', async (req, res) => {
         res.json({ success: 'Los datos introducidos son correctos', token: createToken(usuario) });
     } else {
         res.json({ error: 'error en el email y/o password introducido' });
+    }
+
+});
+
+router.post('/loginCuidador', async (req, res) => {
+
+    //Primero comprobamos si existe el email:
+    const usuario = await getCuidadorByEmail(req.body.email);
+    if (usuario == null) {
+        return res.json({ error: 'error 1 en el email y/o password introducido' });
+    }
+
+    //Comprobamos ahora si las password coinciden. Usamos el método compareSync para esperar a que haga la comprobación y luego seguir adelante.
+    const samePass = bcrypt.compareSync(req.body.password, usuario.password);
+    if (samePass) {// esto es lo mismo que if(samePass === true)
+        res.json({ success: 'Los datos introducidos son correctos', token: createToken(usuario) });
+    } else {
+        res.json({ error: 'error 2 en el email y/o password introducido' });
     }
 
 });

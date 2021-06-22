@@ -20,7 +20,7 @@ const checkTokenCliente = async (req, res, next) => {
     try {
         obj = jwt.verify(token, 'randomKey');
     } catch (error) {
-        return res.json({ error: 'El token es incorrecto' })
+        return res.json({ error: 'El token es incorrecto' });
     }
 
     //Comprobamos si el token esta caducado

@@ -10,7 +10,7 @@ const apiMascotasRouter = require('./api/mascotas')
 
 router.use('/usuarios', apiUsuariosRouter);
 router.use('/clientes', checkTokenCliente, apiClientesRouter);
-router.use('/cuidadores', checkTokenCuidador, apiCuidadoresRouter);
+router.use('/cuidadores', apiCuidadoresRouter);
 router.use('/mascotas', apiMascotasRouter);
 
 module.exports = router;

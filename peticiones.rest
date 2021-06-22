@@ -10,7 +10,7 @@ Content-Type: application/json
 {
     "nombre": "maria",
     "apellidos": "Ruiz",
-    "email": "maria9@gmail.com",
+    "email": "maria10@gmail.com",
     "direccion": "Sentmenat 67, Sabadell, 08203",
     "edad": 27,
     "genero": "Mujer",
@@ -23,7 +23,7 @@ POST http://localhost:3000/api/usuarios/loginCliente
 Content-Type: application/json
 
 {
-    "email": "ana@gmail.com",
+    "email": "pablo@gmail.com",
     "password": "12345"
 }
 
@@ -66,19 +66,20 @@ Content-Type: application/json
     "apellido": "Gastón",
     "experimentado": "Si",
     "razasAdmitidas": "Lagarto",
-    "email": "lorenaa5@gmail.com",
+    "email": "lorenaa6@gmail.com",
     "direccion": "Calle Covadonga, Madrid, 07524",
     "edad": 19,
     "telefono": "662983344",
     "genero": "Mujer",
-    "password": "1234567"
+    "password": "12345"
 }
 
+###
 POST http://localhost:3000/api/usuarios/loginCuidador
 Content-Type: application/json
 
 {
-    "email": "ana@gmail.com",
+    "email": "pablito@gmail.com",
     "password": "12345"
 }
 
