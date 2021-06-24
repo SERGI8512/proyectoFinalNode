@@ -94,6 +94,19 @@ const updateUsuario = (pUsuarioId, { nombre, apellidos, email, direccion, edad, 
     });
 };
 
+const getMascotasById = (pMascotaId) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'select * from mascota where id = ?',
+            [pMascotaId],
+            (err, rows) => {
+                if (err) reject(err);
+                if (rows.length !== 1) resolve(null);
+                resolve(rows[0]);
+            })
+    });
+};
+
 
 
 
@@ -105,5 +118,6 @@ module.exports = {
     getUsersEdad,
     getUsuarioByGenero,
     deleteUsuarioById,
-    updateUsuario
+    updateUsuario,
+    getMascotasById
 }
