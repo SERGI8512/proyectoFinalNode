@@ -1,4 +1,5 @@
-const { getAllUsers, newUsuario, getUsuarioByEmail, getUsuarioById, getUsersEdad, getUsuarioByGenero, deleteUsuarioById, updateUsuario, newCuidador } = require('../../models/cliente.model');
+const { getAllUsers, newUsuario, getUsuarioByEmail, getUsuarioById, getUsersEdad, getUsuarioByGenero, deleteUsuarioById, updateUsuario, newCuidador, getMa } = require('../../models/cliente.model');
+const { getMascotasByClienteId } = require('../../models/mascotas.model')
 
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
@@ -56,7 +57,7 @@ router.post('/login', async (req, res) => {
     //Comprobamos ahora si las password coinciden. Usamos el método compareSync para esperar a que haga la comprobación y luego seguir adelante.
     const samePass = bcrypt.compareSync(req.body.password, usuario.password);
     if (samePass) {// esto es lo mismo que if(samePass === true)
-        res.json({ success: 'Los datos introducidos son correctos', token: createToken(usuario) });
+        res.json({ usuario, token: createToken(usuario) });
     } else {
         res.json({ error: 'error en el email y/o password introducido' });
     }
@@ -74,7 +75,8 @@ function createToken(pUsuario) {
 
 router.get('/:usuarioId', async (req, res) => {
     const usuario = await getUsuarioById(req.params.usuarioId);
-    res.json(usuario);
+    const mascota = await getMascotasByClienteId(req.params.usuarioId);
+    res.json([usuario, mascota]);
 });
 
 router.get('/genero/:usuarioGenero', async (req, res) => {
