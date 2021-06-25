@@ -83,7 +83,7 @@ router.post('/loginCliente', async (req, res) => {
     //Comprobamos ahora si las password coinciden. Usamos el método compareSync para esperar a que haga la comprobación y luego seguir adelante.
     const samePass = bcrypt.compareSync(req.body.password, usuario.password);
     if (samePass) {// esto es lo mismo que if(samePass === true)
-        res.json({ success: 'Los datos introducidos son correctos', token: createToken(usuario) });
+        res.json({ usuario, token: createToken(usuario) });
     } else {
         res.json({ error: 'error en el email y/o password introducido' });
     }
@@ -101,7 +101,7 @@ router.post('/loginCuidador', async (req, res) => {
     //Comprobamos ahora si las password coinciden. Usamos el método compareSync para esperar a que haga la comprobación y luego seguir adelante.
     const samePass = bcrypt.compareSync(req.body.password, usuario.password);
     if (samePass) {// esto es lo mismo que if(samePass === true)
-        res.json({ success: 'Los datos introducidos son correctos', token: createToken(usuario) });
+        res.json({ success: req.body.id, token: createToken(usuario) });
     } else {
         res.json({ error: 'error 2 en el email y/o password introducido' });
     }

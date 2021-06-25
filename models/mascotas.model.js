@@ -70,6 +70,19 @@ const updateMascota = (pMascotaId, { nombre, especie, raza, peso, sexo, edad, ca
     });
 };
 
+const getMascotasByClienteId = (pClienteId) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'select * from mascota where fk_cliente = ?',
+            [pClienteId],
+            (err, rows) => {
+                if (err) reject(err);
+                /*  if (rows.length !== 1) resolve(null); */
+                resolve(rows);
+            })
+    });
+};
+
 
 
 
@@ -79,5 +92,6 @@ module.exports = {
     getMascotasById,
     getMascotasByEspecie,
     deleteMascotaById,
-    updateMascota
+    updateMascota,
+    getMascotasByClienteId
 }
