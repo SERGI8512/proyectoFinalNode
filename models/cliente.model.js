@@ -71,8 +71,6 @@ const getUsersEdad = (pEdadMin, pEdadMax) => {
     });
 };
 
-
-
 const deleteUsuarioById = (pUsuarioId) => {
     return new Promise((resolve, reject) => {
         db.query('delete from usuarios where id = ?', [pUsuarioId], (err, result) => {
